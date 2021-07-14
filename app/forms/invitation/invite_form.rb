@@ -5,7 +5,7 @@ module Invitation
   class InviteForm
     include ActiveModel::Model
 
-    attr_accessor :invitable_id, :invitable_type, :email, :emails
+    attr_accessor :invitable_id, :invitable_type, :email, :emails, :role, :roles
     attr_reader :invitable
 
     def self.model_name # form masquerades as 'invite'
@@ -23,7 +23,7 @@ module Invitation
 
     def build_invites(current_user)
       all_emails.reject(&:blank?).collect do |e|
-        Invite.new(invitable_id: @invitable_id, invitable_type: @invitable_type, sender_id: current_user.id, email: e)
+        Invite.new(invitable_id: @invitable_id, invitable_type: @invitable_type, sender_id: current_user.id, email: e, role: role)
       end
     end
 

@@ -5,6 +5,8 @@
 class Invite < ActiveRecord::Base
   belongs_to :invitable, polymorphic: true
   belongs_to :sender, class_name: Invitation.configuration.user_model_class_name
+  
+  enum role: [:admin, :member]
 
   # Rails >= 5 makes belongs_to association required by default
   if Rails::VERSION::MAJOR >= 5
